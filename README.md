@@ -8,7 +8,7 @@
 环境
 | **macOS 12+（推荐）**    支持ASR / LLM / TTS / 打开应用 / 搜索 / 音量 / 亮度 / 截屏 / 宏（专注/演示）
 | **Windows 10+**         ASR / LLM / TTS / 打开应用 / 搜索 / 音量/静音/截屏（**已内置 nircmd.exe**） / 宏 
-| **Windows Demo（最次）** 不执行系统动作，仅打印宏步骤 + TTS（无需 nircmd）
+| **Windows Demo（最次方法）** 不执行系统动作，仅打印宏步骤 + TTS（无需 nircmd）
 
 # 二、运行环境（推荐）mac/win详情如需运行步骤与快速检查清单，请看 `RUN.md`
 macOS 12+
