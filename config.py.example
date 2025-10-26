@@ -1,0 +1,18 @@
+QINIU_API_KEY = "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+QINIU_OPENAI_BASE_URL = "https://openai.qiniu.com/v1"
+
+QINIU_LLM_MODEL = "qwen-max"   
+QINIU_ASR_MODEL = "asr"
+QINIU_TTS_MODEL = "tts"
+QINIU_TTS_VOICE = "alloy"      
+
+# 录音参数
+SAMPLE_RATE = 16000
+CHANNELS = 1
+CHUNK_MS = 40
+
+QINIU_KODO_AK = "个人AK"
+QINIU_KODO_SK = "个人SK"
+
+QINIU_KODO_BUCKET = "个人空间名"
+QINIU_KODO_DOMAIN = "http://个人空间域名"

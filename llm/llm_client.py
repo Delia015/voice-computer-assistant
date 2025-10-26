@@ -1,20 +1,18 @@
-# llm/llm_client.py
 from openai import OpenAI
-from http import HTTPStatus
 from config import QINIU_API_KEY, QINIU_OPENAI_BASE_URL, QINIU_LLM_MODEL
 
 client = OpenAI(api_key=QINIU_API_KEY, base_url=QINIU_OPENAI_BASE_URL)
 
-SYSTEM_PROMPT = """
-你是桌面语音助手的意图解析器。请将用户中文语句结构化成：
-{"intent":"<open_app|system_control|search|chat>","slots":{...},"say":"给用户的简短口头回复"}
+SYSTEM_PROMPT = """你是一个本地电脑语音助手，只输出 JSON，不要解释。
+支持意图：
+1) open_app(app) —— 打开应用，例如：微信、Finder、Safari
+2) system_control(action) —— volume_up / volume_down / brightness_up / brightness_down / screenshot
+3) search(query) —— 触发浏览器搜索查询内容
+4) chat —— 其他内容直接作为聊天回复
 
-- open_app: slots={"app":"应用名"}，如"音乐|QQ音乐|微信|VS Code|浏览器|Notion"
-- system_control: slots={"action":"volume_up|volume_down|screenshot|brightness_up|brightness_down"}
-- search: slots={"query":"搜索关键词"}
-- chat: 普通对话，进行自然回答（say 即可）
-不要输出多余文字。
-""".strip()
+输出 JSON 示例：
+{"intent": "open_app", "slots": {"app":"微信"}, "say":"我已经帮你打开微信了"}
+"""
 
 def parse_intent(text: str) -> dict:
     try:
@@ -23,17 +21,8 @@ def parse_intent(text: str) -> dict:
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": text}
-            ],
-            temperature=0.2,
+            ]
         )
-        content = resp.choices[0].message.content.strip()
-        # 粗暴“去围栏”，确保是纯 JSON
-        for junk in ["```json", "```", "“", "”", "\n"]:
-            content = content.replace(junk, "")
-        import json
-        data = json.loads(content)
-        if "say" not in data:
-            data["say"] = "好的"
-        return data
-    except Exception as e:
-        return {"intent": "chat", "slots": {}, "say": f"我解析失败了：{e}"}
+        return eval(resp.choices[0].message.content)
+    except:
+        return {"intent": "chat", "say": "好的，我知道啦"}

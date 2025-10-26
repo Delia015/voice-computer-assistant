@@ -1,20 +1,27 @@
 # executor/system_control.py
-import subprocess
+import os
+from pathlib import Path
 
 def volume_up():
-    script = 'set o to output volume of (get volume settings)\nset n to o + 10\nif n > 100 then set n to 100\nset volume output volume n'
-    subprocess.run(["osascript", "-e", script], check=False)
+    # 每次+10
+    os.system('osascript -e "set volume output volume (output volume of (get volume settings) + 10)"')
 
 def volume_down():
-    script = 'set o to output volume of (get volume settings)\nset n to o - 10\nif n < 0 then set n to 0\nset volume output volume n'
-    subprocess.run(["osascript", "-e", script], check=False)
+    os.system('osascript -e "set volume output volume (output volume of (get volume settings) - 10)"')
 
 def screenshot():
-    subprocess.run(["screencapture", "-x", "~/Desktop/voice_assistant_screenshot.png"], check=False)
+    dest = str(Path.home() / "Desktop" / "screenshot.png")
+    os.system(f'screencapture -x "{dest}"')
 
 def brightness_up():
-    # 亮度可选装 brightness 工具；没有则忽略
-    subprocess.run(["bash", "-lc", "command -v brightness >/dev/null && brightness +0.1 || true"], check=False)
+    # 若安装了 brightness 工具则使用；否则提示
+    if os.system("command -v brightness >/dev/null 2>&1") == 0:
+        os.system("brightness +0.1")
+    else:
+        print("[提示] 亮度调节需要安装 brightness 工具：brew install brightness")
 
 def brightness_down():
-    subprocess.run(["bash", "-lc", "command -v brightness >/dev/null && brightness -0.1 || true"], check=False)
+    if os.system("command -v brightness >/dev/null 2>&1") == 0:
+        os.system("brightness -0.1")
+    else:
+        print("[提示] 亮度调节需要安装 brightness 工具：brew install brightness")
