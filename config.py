@@ -3,9 +3,9 @@ QINIU_API_KEY = "sk-e46475c3002845cb7bd39e89974fe152c80706212b06ef11c27cf6cc3a1f
 QINIU_OPENAI_BASE_URL = "https://openai.qiniu.com/v1"
 
 QINIU_LLM_MODEL = "qwen-turbo"          # 对话/意图解析模型
-QINIU_ASR_MODEL = "asr"          # 语音转文本（OpenAI 兼容接口的转写模型名，七牛会兼容或映射）
-QINIU_TTS_MODEL = "tts-1"              # 文本转语音
-QINIU_TTS_VOICE = "female_3"              # 音色（按七牛文档可替换）
+QINIU_ASR_MODEL = "asr"                 # 语音转文本
+QINIU_TTS_MODEL = "tts-1"               # 文本转语音
+QINIU_TTS_VOICE = "female_1"            # 音色
 QINIU_TTS_FORMAT = "wav"
 
 # 地域

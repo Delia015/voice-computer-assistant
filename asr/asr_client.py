@@ -35,7 +35,7 @@ def qiniu_asr(audio_url: str) -> str:
         "model": QINIU_ASR_MODEL,
         "audio": {
             "format": "wav",
-            "rate": 16000,
+            "rate": "16000",
             "url": audio_url
         }
     }

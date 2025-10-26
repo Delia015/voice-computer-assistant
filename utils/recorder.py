@@ -9,6 +9,8 @@ class Recorder:
         self.frames = []
         self.stream = None
         self.filename = "record.wav"
+        self.wav_path = "output.wav"
+
 
     def _callback(self, indata, frames, time, status):
         if status:
